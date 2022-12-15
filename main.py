@@ -26,9 +26,9 @@ def main():
 
 
 def mostStrengthening(servants : list[Servant]) -> None:
-	print("Servants avec le plus de Strengthening :\n")
+	print('Servants avec le plus de "Strengthening" (Interlude + Rank-Up):\n')
 	for x in sorted(servants, key = (lambda x: (len(x.relatedQuests),5-x.rarity)), reverse=True):
-		print(f"{x.name:^35} ({x.className:^15}) {x.rarity:}*, Number of Strengthening : {len(x.relatedQuests):<}, Max Bond : {x.maxBond():<2}, Max Ascension : {x.maxAsc():<}")
+		print(f"{x.name:^35} ({x.className:^15}) {x.rarity:}*\tNumber of Strengthening : {len(x.getInterludes())}+{len(x.getRankUps())}\tMax Bond : {x.maxBond():<2}\tMax Ascension : {x.maxAsc():<}")
 
 
 # file : Chemin vers le json de servants

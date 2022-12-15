@@ -1,5 +1,7 @@
 from typing import Any
 from relatedQuest import RelatedQuest
+from relatedQuest import Interlude
+from relatedQuest import RankUp
 
 
 class Servant:
@@ -47,6 +49,11 @@ class Servant:
 					break
 		return m
 
+	def getInterludes(self) -> list[Interlude]:
+		return list(filter(lambda x: isinstance(x, Interlude), self.relatedQuests))
+
+	def getRankUps(self) -> list[RankUp]:
+		return list(filter(lambda x: isinstance(x, RankUp), self.relatedQuests))
 
 	@staticmethod
 	def createFromDict(d : dict[str, Any]) -> 'Servant' :
