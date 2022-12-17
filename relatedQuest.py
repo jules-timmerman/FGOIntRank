@@ -7,7 +7,7 @@ class RelatedQuest:
 	gifts = []
 	releaseConditions = []
 
-	def __init__(self, name :str, relatedId : int, gifts : list[Gift], releaseConditions: list[Condition]):
+	def __init__(self, name :str, relatedId : int, gifts, releaseConditions):
 		self.name = name
 		self.relatedId = relatedId
 		self.gifts = gifts
@@ -31,10 +31,10 @@ class RelatedQuest:
 
 
 class RankUp(RelatedQuest):
-	def __init__(self, name :str, relatedId : int, gifts : list[Gift], releaseConditions: list[Condition]):
+	def __init__(self, name :str, relatedId : int, gifts, releaseConditions):
 		super().__init__(name, relatedId, gifts, releaseConditions)
 
 
 class Interlude(RelatedQuest):
-	def __init__(self, name :str, relatedId : int, gifts : list[Gift], releaseConditions: list[Condition]):
+	def __init__(self, name :str, relatedId : int, gifts, releaseConditions):
 		super().__init__(name, relatedId, gifts, releaseConditions)

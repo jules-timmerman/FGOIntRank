@@ -24,19 +24,19 @@ def main():
 		print("Enter a valid number...")
 
 
-def mostStrengthening(servants : list[Servant]) -> None:
+def mostStrengthening(servants) -> None:
 	print('Servants avec le plus de "Strengthening" (Interlude + Rank-Up):\n')
 	for x in sorted(servants, key = (lambda x: (len(x.relatedQuests),5-x.rarity)), reverse=True):
-		print(f"{x.name:^35} ({x.className:^15}) {x.rarity:}*\tNumber of Strengthening : {len(x.getInterludes())}+{len(x.getRankUps())}\tMax Bond : {x.maxBond():<2}\tMax Ascension : {x.maxAsc():<}")
+		print("{x.name:^35} ({x.className:^15}) {x.rarity:}*\tNumber of Strengthening : {}+{}\tMax Bond : {:<2}\tMax Ascension : {:<}".format(len(x.getInterludes()), len(x.getRankUps()), x.maxBond(), x.maxAsc(), x=x))
 
 
 # file : Chemin vers le json de servants
-def parseServants(file : str) -> list[Servant]:
+def parseServants(file : str):
 	with open(file) as f:
 		l = json.load(f, object_hook = Servant.createFromDict)
 		return list(filter(lambda x: x is not None, l))
 
-def getQuests(d: dict) -> list[RelatedQuest]:
+def getQuests(d: dict):
 	tempL = []
 	for k in d.keys():
 		if isinstance(d[k], RelatedQuest):
@@ -53,7 +53,7 @@ def getQuests(d: dict) -> list[RelatedQuest]:
 
 
 # We get duplicates due to Road to 7....
-def removeDuplicateQuests(quests: list[RelatedQuest]):
+def removeDuplicateQuests(quests):
 	l = []
 	ids = []
 	for q in quests:
@@ -62,7 +62,7 @@ def removeDuplicateQuests(quests: list[RelatedQuest]):
 			ids += [q.relatedId]
 	return l
 
-def parseQuests(file : str) -> list[RelatedQuest]:
+def parseQuests(file : str):
 	with open(file) as f:
 		l = json.load(f, object_hook = RelatedQuest.parse)
 		quests = []

@@ -8,8 +8,8 @@ class Servant:
 	name = ""
 	rarity = 0
 	
-	related : list[int] = []
-	relatedQuests : list[RelatedQuest] = []
+	related = []
+	relatedQuests = []
 	
 	def __init__(self, name = "", related = [], className = "", rarity = 0):
 		self.name = name
@@ -49,14 +49,14 @@ class Servant:
 					break
 		return m
 
-	def getInterludes(self) -> list[Interlude]:
+	def getInterludes(self):
 		return list(filter(lambda x: isinstance(x, Interlude), self.relatedQuests))
 
-	def getRankUps(self) -> list[RankUp]:
+	def getRankUps(self):
 		return list(filter(lambda x: isinstance(x, RankUp), self.relatedQuests))
 
 	@staticmethod
-	def createFromDict(d : dict[str, Any]) -> 'Servant' :
+	def createFromDict(d) -> 'Servant' :
 		if "name" in d.keys() and "relateQuestIds" in d.keys() and "className" in d.keys():
 			return Servant(name = d['name'], related = d['relateQuestIds'], className=d['className'], rarity=d["rarity"])
 		else:
