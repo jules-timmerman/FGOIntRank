@@ -16,13 +16,12 @@ def main():
 	print("1) Most Strengthening")
 	print("2) Most Strenghthening - low rarity edition")
 	s = input()
-	match s:
-		case "1":
-			mostStrengthening(servants) # Par nombre de Strengthening
-		case "2":
-			mostStrengthening(list(filter(lambda x: x.rarity <= 3, servants))) # Par nombre en filtrant les low stars
-		case _:
-			print("Enter a valid number...")
+	if s == "1":
+		mostStrengthening(servants) # Par nombre de Strengthening
+	elif s == "2":
+		mostStrengthening(list(filter(lambda x: x.rarity <= 3, servants))) # Par nombre en filtrant les low stars
+	else:
+		print("Enter a valid number...")
 
 
 def mostStrengthening(servants : list[Servant]) -> None:

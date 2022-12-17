@@ -10,11 +10,10 @@ class Gift:
 		self.name = self.getNameFromId(giftId)
 
 	def getNameFromId(self, giftId:int):
-		match giftId:
-			case 2:
-				return "Saint Quartz"
-			case _:
-				return "Unknown "+str(giftId)
+		if giftId == 2:
+			return "Saint Quartz"
+		else:
+			return "Unknown "+str(giftId)
 
 	@staticmethod
 	def createFromDict(d:dict) -> 'Gift':
