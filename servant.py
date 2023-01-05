@@ -1,3 +1,5 @@
+import json
+
 from typing import Any
 from relatedQuest import RelatedQuest
 from relatedQuest import Interlude
@@ -55,9 +57,15 @@ class Servant:
 	def getRankUps(self) -> list[RankUp]:
 		return list(filter(lambda x: isinstance(x, RankUp), self.relatedQuests))
 
-	@staticmethod
-	def createFromDict(d : dict[str, Any]) -> 'Servant' :
-		if "name" in d.keys() and "relateQuestIds" in d.keys() and "className" in d.keys():
-			return Servant(name = d['name'], related = d['relateQuestIds'], className=d['className'], rarity=d["rarity"])
-		else:
-			return None
+@staticmethod
+def createFromDict(d : dict[str, Any]) -> 'Servant' :
+	if "name" in d.keys() and "relateQuestIds" in d.keys() and "className" in d.keys():
+		return Servant(name = d['name'], related = d['relateQuestIds'], className=d['className'], rarity=d["rarity"])
+	else:
+		return None
+
+# file : Chemin vers le json de servants
+def parseServants(file : str) -> list[Servant]:
+	with open(file) as f:
+		l = json.load(f, object_hook = createFromDict)
+		return list(filter(lambda x: x is not None, l))
