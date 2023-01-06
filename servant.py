@@ -4,7 +4,7 @@ from typing import Any
 from relatedQuest import RelatedQuest
 from relatedQuest import Interlude
 from relatedQuest import RankUp
-
+from ascensions import Ascensions, parseAsc
 
 class Servant:
 	name = ""
@@ -12,13 +12,15 @@ class Servant:
 	
 	related : list[int] = []
 	relatedQuests : list[RelatedQuest] = []
+	ascensions : Ascensions = []
 	
-	def __init__(self, name = "", related = [], className = "", rarity = 0):
+	def __init__(self, name = "", related = [], className = "", rarity = 0, ascensions : Ascensions = []):
 		self.name = name
 		self.related = related
 		self.className = className
 		self.rarity = rarity
 		self.relatedQuests = []
+		self.ascensions = ascensions
 
 
 	def maxBond(self):
@@ -57,12 +59,12 @@ class Servant:
 	def getRankUps(self) -> list[RankUp]:
 		return list(filter(lambda x: isinstance(x, RankUp), self.relatedQuests))
 
-@staticmethod
 def createFromDict(d : dict[str, Any]) -> 'Servant' :
 	if "name" in d.keys() and "relateQuestIds" in d.keys() and "className" in d.keys():
-		return Servant(name = d['name'], related = d['relateQuestIds'], className=d['className'], rarity=d["rarity"])
+		return Servant(name = d['name'], related = d['relateQuestIds'], 
+			className=d['className'], rarity=d["rarity"], ascensions = parseAsc(d["ascensionMaterials"]))
 	else:
-		return None
+		return d
 
 # file : Chemin vers le json de servants
 def parseServants(file : str) -> list[Servant]:
